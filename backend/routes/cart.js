@@ -8,7 +8,6 @@ const router = express.Router();
 router.post("/", authenticate, async (req, res) => {
   const { productId, quantity } = req.body;
 
-  // Validate request body
   if (!productId || !quantity) {
     return res
       .status(400)
@@ -16,7 +15,6 @@ router.post("/", authenticate, async (req, res) => {
   }
 
   try {
-    // Check if the product exists in the database
     const productExists = await Product.findById(productId);
     if (!productExists) {
       return res.status(404).json({ message: "Product not found" });
@@ -27,7 +25,6 @@ router.post("/", authenticate, async (req, res) => {
       cart = new Cart({ userId: req.user.id, products: [] });
     }
 
-    // Check if the product already exists in the cart
     const productIndex = cart.products.findIndex((p) =>
       p.productId.equals(productId)
     );
@@ -56,7 +53,7 @@ router.get("/", authenticate, async (req, res) => {
 
     const productsWithDetails = cart.products.map((item) => {
       if (!item.productId) {
-        return null; // Handle cases where productId is null
+        return null;
       }
       return {
         _id: item._id,
@@ -70,7 +67,6 @@ router.get("/", authenticate, async (req, res) => {
       };
     });
 
-    // Remove null items
     const filteredProducts = productsWithDetails.filter(
       (item) => item !== null
     );

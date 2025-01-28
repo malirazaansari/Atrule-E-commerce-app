@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { api } from "../api";
 
 const Home = () => {
-  const [products, setProducts] = useState([]); // Stores products
-  const [cartMessage, setCartMessage] = useState(null); // Success/Error messages
+  const [products, setProducts] = useState([]);
+  const [cartMessage, setCartMessage] = useState(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -18,7 +18,6 @@ const Home = () => {
     fetchProducts();
   }, []);
 
-  // Handle adding product to the cart
   const addToCart = async (productId, quantity) => {
     try {
       const token = localStorage.getItem("token");
@@ -27,7 +26,6 @@ const Home = () => {
         return;
       }
 
-      // API call to add the product to the cart
       await api.post(
         "/cart",
         { productId, quantity },
@@ -44,7 +42,6 @@ const Home = () => {
       setCartMessage("Failed to add product to the cart.");
     }
 
-    // Clear the message after 3 seconds
     setTimeout(() => setCartMessage(null), 3000);
   };
 
@@ -52,14 +49,12 @@ const Home = () => {
     <div>
       <h1 className="mb-4 font-bold text-2xl">Products</h1>
 
-      {/* Display Success/Error Messages */}
       {cartMessage && (
         <p className="mb-4 font-semibold text-center text-red-500">
           {cartMessage}
         </p>
       )}
 
-      {/* Products Grid */}
       <div className="gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {products.map((product) => (
           <div
@@ -70,7 +65,6 @@ const Home = () => {
             <p>{product.description}</p>
             <p className="font-bold text-blue-500">${product.price}</p>
 
-            {/* Quantity Selector */}
             <div className="flex items-center mt-4">
               <label
                 htmlFor={`quantity-${product._id}`}
@@ -87,7 +81,6 @@ const Home = () => {
               />
             </div>
 
-            {/* Add to Cart Button */}
             <button
               onClick={() => {
                 const quantity = parseInt(

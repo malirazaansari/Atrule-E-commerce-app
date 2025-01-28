@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
-import { api } from "../api"; // Axios instance for API calls
+import { api } from "../api";
 
 const Cart = () => {
-  const [cart, setCart] = useState([]); // State to store cart items
-  const [loading, setLoading] = useState(true); // State for loading indicator
-  const [error, setError] = useState(null); // State for error handling
+  const [cart, setCart] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchCart = async () => {
       try {
-        const token = localStorage.getItem("token"); // Get the token from localStorage
+        const token = localStorage.getItem("token");
 
         if (!token) {
           setError("User is not logged in. Please log in to view the cart.");
@@ -17,14 +17,13 @@ const Cart = () => {
           return;
         }
 
-        // Send GET request with Authorization header
         const response = await api.get("/cart", {
           headers: {
-            Authorization: `Bearer ${token}`, // Attach the JWT token
+            Authorization: `Bearer ${token}`,
           },
         });
 
-        setCart(response.data.products); // Update the cart state
+        setCart(response.data.products);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching cart:", error);
@@ -38,17 +37,14 @@ const Cart = () => {
     fetchCart();
   }, []);
 
-  // Loading state
   if (loading) {
     return <p>Loading your cart...</p>;
   }
 
-  // Error state
   if (error) {
     return <p className="text-red-500">{error}</p>;
   }
 
-  // Render the cart
   return (
     <div>
       <h1 className="mb-4 font-bold text-2xl">Cart</h1>

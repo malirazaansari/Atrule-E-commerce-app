@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Cart from "./pages/Cart";
+import Register from "./pages/Register";
 
 const App = () => {
   return (
@@ -21,6 +22,10 @@ const App = () => {
           <Route
             path="/cart"
             element={<Cart />}
+          />
+          <Route
+            path="/register"
+            element={<Register />}
           />
         </Routes>
       </div>

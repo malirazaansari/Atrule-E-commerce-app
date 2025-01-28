@@ -7,7 +7,6 @@ const Navbar = () => {
   return (
     <nav className="bg-blue-500 text-white">
       <div className="flex justify-between items-center mx-auto px-4 w-full h-16 container">
-        {/* Brand Logo */}
         <Link
           to="/"
           className="font-bold text-xl"
@@ -15,7 +14,6 @@ const Navbar = () => {
           E-Commerce
         </Link>
 
-        {/* Desktop Links */}
         <div className="md:flex space-x-6 hidden">
           <Link
             to="/"
@@ -35,9 +33,14 @@ const Navbar = () => {
           >
             Login
           </Link>
+          <Link
+            to="/register"
+            className="hover:underline"
+          >
+            Register
+          </Link>
         </div>
 
-        {/* Hamburger Icon for Mobile */}
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="md:hidden focus:outline-none"
@@ -59,7 +62,6 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden bg-blue-600">
           <Link

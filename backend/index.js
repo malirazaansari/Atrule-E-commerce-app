@@ -14,7 +14,6 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// Routes
 app.use("/auth", authRoutes);
 app.use("/products", productRoutes);
 app.use("/cart", cartRoutes);
