@@ -8,11 +8,10 @@ const Register = () => {
     email: "",
     password: "",
   });
-  const [error, setError] = useState(null); // For displaying error messages
-  const [success, setSuccess] = useState(null); // For displaying success messages
-  const navigate = useNavigate(); // For redirecting after successful registration
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+  const navigate = useNavigate();
 
-  // Handle input changes
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -20,18 +19,17 @@ const Register = () => {
     });
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
     setSuccess(null);
 
     try {
-      const response = await api.post("/auth/signup", formData); // Send data to the backend
+      const response = await api.post("/auth/signup", formData);
       setSuccess("User registered successfully! You can now log in.");
       console.log(response.data);
       setTimeout(() => {
-        navigate("/login"); // Redirect to login page after 2 seconds
+        navigate("/login");
       }, 2000);
     } catch (err) {
       setError(err.response?.data || "Registration failed. Please try again.");
@@ -42,7 +40,6 @@ const Register = () => {
     <div className="mx-auto mt-10 max-w-md">
       <h1 className="mb-4 font-bold text-2xl">Register</h1>
 
-      {/* Display Success or Error Messages */}
       {success && <p className="mb-4 text-green-500">{success}</p>}
       {error && <p className="mb-4 text-red-500">{error}</p>}
 
@@ -50,7 +47,6 @@ const Register = () => {
         onSubmit={handleSubmit}
         className="space-y-4"
       >
-        {/* Username Field */}
         <div>
           <label
             htmlFor="username"
@@ -70,7 +66,6 @@ const Register = () => {
           />
         </div>
 
-        {/* Email Field */}
         <div>
           <label
             htmlFor="email"
@@ -90,7 +85,6 @@ const Register = () => {
           />
         </div>
 
-        {/* Password Field */}
         <div>
           <label
             htmlFor="password"
@@ -110,7 +104,6 @@ const Register = () => {
           />
         </div>
 
-        {/* Submit Button */}
         <button
           type="submit"
           className="bg-blue-500 hover:bg-blue-600 py-2 rounded w-full text-white"
